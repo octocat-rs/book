@@ -1,0 +1,6 @@
+[book]
+authors = ["Proudmuslim"]
+language = "en"
+multilingual = false
+src = "src"
+title = "Octocat-rs: Beginner's Documentation"
