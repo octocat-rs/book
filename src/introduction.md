@@ -24,3 +24,5 @@ Octocat aims to be _the_ GitHub API library for Rust. It was created due to a la
                                └────────┘
 ```
 
+* The second is as a glorified HTTP client wrapper.
+
