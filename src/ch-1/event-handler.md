@@ -30,16 +30,16 @@ trait EventHandler {
     * This is used to represent the type of the `github_client` parameter present in each event.
 
 ```rust,ignore,does-not-compile
+#[async_trait]
 trait EventHandler {
     type GitHubClient: GitHubClient + Send + Sync;
 
     ...
 
-    // NOTE: Not representative of what an actual event looks like.
-    async fn event(
+    async fn example_event(
         &self,
         github_client: Arc<Self::GitHubClient>,
-        app_event: EventType,
+        example_event: ExampleEventType,
     ) -> Command<Self::Message> {
         Command::none()
     }
@@ -55,11 +55,11 @@ trait EventHandler {
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
-    ...
-
     fn listener_port(&self) -> u16 {
         8080
     }
+
+    ...
 }
 ```
 * `route`
@@ -67,10 +67,77 @@ trait EventHandler {
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
-    ...
-
     fn route(&self) -> &'static str {
         "/payload"
     }
+
+    ...
+}
+```
+
+### Events
+
+* There are functions for each possible webhook event, and they all follow the same format. Here's the ping event as an example:
+
+```rust,ignore,does-not-compile
+#[async_trait]
+trait EventHandler {
+    async fn ping_event(
+        &self, 
+        github_client: Arc<Self::GitHubClient>,
+        ping_event: PingEvent,
+    ) -> Command<Self::Message> {
+        Command::none()
+    }
+
+    ...
+}
+```
+### Usage Example
+
+* Here's an example of the `EventHandler` trait in action.
+
+```rust,ignore,does-not-compile
+#[derive(Debug)]
+struct Handler {}
+
+#[derive(Debug)]
+enum Message {
+    Stuff(&'static str),
+}
+
+#[async_trait]
+impl EventHandler for Handler {
+    type Message = Message;
+    type GitHubClient = Client<Self>;
+
+    fn listener_port(&self) -> u16 {
+        2022
+    }
+
+    async fn message(&self, message: Self::Message) {
+        match message {
+            Message::Stuff(s) => {
+                println!("==> Message received: {s}");
+            }
+        }
+    }
+
+    async fn commit_event(
+        &self,
+        github_client: Arc<Self::GitHubClient>,
+        commit: PushEvent,
+    ) -> Command<Self::Message> {
+        println!("Commit pushed!");
+
+        Command::perform(async { "Computation finished" }, Message::Stuff)
+    }
+}
+
+#[tokio::main]
+async fn main() -> Result<()> {
+    ClientBuilder::new().event_handler(Handler {}).build()?.start().await;
+
+    Ok(())
 }
 ```
