@@ -2,6 +2,9 @@
 
 All builders in Octocat follow a similar pattern. Each one implements the `Builder` trait, and contains setters for each of its fields, nested or not.
 
+| ⚠️ Builders and methods are currently limited in their variety. This will change with time, however it may take a while for work to resume. |
+|-|
+
 ### The `Builder` trait
 
 ```rust,ignore,does-not-compile

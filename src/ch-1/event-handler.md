@@ -50,6 +50,24 @@ trait EventHandler {
 
 ### Listener Configuration
 
+### Supported on all platforms.
+
+* `listener_secret`
+    * Requires the `secrets` feature to be enabled.
+    * Your webhook secret.
+
+```rust,ignore,does-not-compile
+trait EventHandler {
+    fn listener_secret(&self) -> &[u8] {
+        "secret".as_bytes()
+    }
+
+    ...
+}
+```
+
+### Unsupported on WebAssembly
+
 * `listener_port`
     * The port where the event listener listens (`8080` by default).
 
