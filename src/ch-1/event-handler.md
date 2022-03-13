@@ -26,7 +26,7 @@ trait EventHandler {
 
 * `GitHubClient`
     * In 99% of cases, this type should be set equal to `Client<Self>`.
-        * `Client<Self>` will be made the default once GATs are stabilized.
+        * `Client<Self>` is the default value. You shouldn't have to override this unless you're writing your own custom `GitHubClient` implementation (not recommended)
     * This is used to represent the type of the `github_client` parameter present in each event.
 
 ```rust,ignore,does-not-compile
