@@ -86,7 +86,8 @@ trait EventHandler {
 ```rust,ignore,does-not-compile
 trait EventHandler {
     fn route(&self) -> &'static str {
-        "/payload"
+        // There is no need to prepend a / to the route
+        "payload"
     }
 
     ...
