@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="../ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="../././mdbook-admonish.css">
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -138,12 +139,10 @@
 <p><code>EventHandler</code> is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.</p>
 <p>Let's break down what you need to know.</p>
 <h3 id="associated-types"><a class="header" href="#associated-types">Associated types</a></h3>
-<ul>
-<li><code>Message</code><!-- TODO: Hyperlink types to docs -->
+<h4 id="message"><a class="header" href="#message"><code>Message</code></a></h4>
+<!-- TODO: Hyperlink types to docs -->
 <ul>
 <li>The enum which you recieve when a future from a <a href=""><code>Command</code></a> is completed.</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     type Message: std::fmt::Debug + Send,
@@ -157,17 +156,20 @@
     ...
 }
 </code></pre>
-<ul>
-<li><code>GitHubClient</code>
-<ul>
-<li>In 99% of cases, this type should be set equal to <code>Client&lt;Self&gt;</code>.
+<h4 id="githubclient"><a class="header" href="#githubclient"><code>GitHubClient</code></a></h4>
+<div class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+</div>
+<div>
+<p>In 99% of cases, this type should be set equal to <code>Client&lt;Self&gt;</code>.</p>
 <ul>
 <li><code>Client&lt;Self&gt;</code> is the default value. You shouldn't have to override this unless you're writing your own custom <code>GitHubClient</code> implementation (not recommended)</li>
 </ul>
-</li>
+</div>
+</div>
+<ul>
 <li>This is used to represent the type of the <code>github_client</code> parameter present in each event.</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">#[async_trait]
 trait EventHandler {
@@ -188,13 +190,19 @@ trait EventHandler {
 </code></pre>
 <h3 id="listener-configuration"><a class="header" href="#listener-configuration">Listener Configuration</a></h3>
 <h3 id="supported-on-all-platforms"><a class="header" href="#supported-on-all-platforms">Supported on all platforms.</a></h3>
-<ul>
-<li><code>listener_secret</code>
+<h4 id="listener_secret"><a class="header" href="#listener_secret"><code>listener_secret</code></a></h4>
+<div class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+</div>
+<div>
 <ul>
 <li>Requires the <code>secrets</code> feature to be enabled.</li>
-<li>Your webhook secret.</li>
 </ul>
-</li>
+</div>
+</div>
+<ul>
+<li>Your webhook secret.</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     fn listener_secret(&amp;self) -&gt; &amp;[u8] {
@@ -205,12 +213,9 @@ trait EventHandler {
 }
 </code></pre>
 <h3 id="unsupported-on-webassembly"><a class="header" href="#unsupported-on-webassembly">Unsupported on WebAssembly</a></h3>
-<ul>
-<li><code>listener_port</code>
+<h4 id="listener_port"><a class="header" href="#listener_port"><code>listener_port</code></a></h4>
 <ul>
 <li>The port where the event listener listens (<code>8080</code> by default).</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     fn listener_port(&amp;self) -&gt; u16 {
@@ -220,12 +225,9 @@ trait EventHandler {
     ...
 }
 </code></pre>
-<ul>
-<li><code>route</code>
+<h4 id="route"><a class="header" href="#route"><code>route</code></a></h4>
 <ul>
 <li>The route at which payloads are to be accepted (<code>/payload</code> by default).</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     fn route(&amp;self) -&gt; &amp;'static str {
@@ -254,9 +256,12 @@ trait EventHandler {
 }
 </code></pre>
 <h3 id="usage-example"><a class="header" href="#usage-example">Usage Example</a></h3>
-<ul>
-<li>Here's an example of the <code>EventHandler</code> trait in action.</li>
-</ul>
+<div class="admonition example">
+<div class="admonition-title">
+<p>Example</p>
+</div>
+<div>
+<p>Here's an example of the <code>EventHandler</code> trait in action.</p>
 <pre><code class="language-rust ignore does-not-compile">#[derive(Debug)]
 struct Handler {}
 
@@ -300,6 +305,8 @@ async fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }
 </code></pre>
+</div>
+</div>
 
                     </main>
 

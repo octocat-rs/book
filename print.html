@@ -26,6 +26,7 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="././mdbook-admonish.css">
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -151,6 +152,11 @@
 </ul>
 </li>
 </ul>
+<div class="admonition info">
+<div class="admonition-title">
+<p>Visualization</p>
+</div>
+<div>
 <pre><code>                                             ┌────────────────┐  ┌────────┐
 ┌──────────────┐  ┌─────┐   ┌─────────────┐◄─┤Result (Message)├──┤        │
 │Event Listener├──┤Event├──►│Event Handler│  └────────────────┘  │Executor│
@@ -165,10 +171,42 @@
                                │  User  │
                                └────────┘
 </code></pre>
+</div>
+</div>
 <ul>
 <li>The second is as a glorified HTTP client wrapper.</li>
 </ul>
-<div style="break-before: page; page-break-before: always;"></div><h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
+<div style="break-before: page; page-break-before: always;"></div><div class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+</div>
+<div>
+<ul>
+<li>If you're using Octocat for Cloudflare Workers, click <a href="getting-started.html#getting-started-workers">here</a>.</li>
+<li>If aren't, click <a href="getting-started.html#getting-started-native">here</a>.</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+</div>
+<div>
+<p>Octocat currently relies on some nightly features (namely associated type defaults) to build. Set the toolchain override in the project directory to nightly. You can do this via:</p>
+<ul>
+<li>The <code>rustup</code> command, or </li>
+</ul>
+<pre><code class="language-bash">rustup override set nightly
+</code></pre>
+<ul>
+<li>The <code>rust-toolchain.toml</code> file (recommended):</li>
+</ul>
+<pre><code class="language-toml">[toolchain]
+channel = &quot;nightly&quot;
+</code></pre>
+</div>
+</div>
+<h2 id="getting-started-native"><a class="header" href="#getting-started-native">Getting Started (native)</a></h2>
 <ul>
 <li>Create the project</li>
 </ul>
@@ -183,26 +221,18 @@ octocat-rs = { git = &quot;https://github.com/octocat-rs/octocat-rs&quot; }
 tokio = { version = &quot;1&quot;, features = [&quot;full&quot;] }
 async-trait = &quot;0.1.52&quot;
 </code></pre>
-<ul>
-<li>Octocat currently relies on some nightly features (namely associated type defaults) to build. Set the toolchain override in the project directory to nightly. You can do this using the <code>rustup</code> command or the <code>rust-toolchain.toml</code> file (recommended):</li>
-</ul>
-<pre><code class="language-bash">rustup override set nightly
-</code></pre>
-<pre><code class="language-toml">[toolchain]
-channel = &quot;nightly&quot;
-</code></pre>
+<h2 id="getting-started-workers"><a class="header" href="#getting-started-workers">Getting Started (Workers)</a></h2>
+<p>Octocat has support for WebAssembly with Cloudflare workers. See <a href="https://github.com/octocat-rs/octocat-rs/tree/main/examples/cloudflare">the cloudflare example in the project repository</a> for more information.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="fundamental-concepts"><a class="header" href="#fundamental-concepts">Fundamental Concepts</a></h2>
 <p>This chapter goes over the concepts you'll need to understand in order to use Octocat.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="understanding-eventhandler"><a class="header" href="#understanding-eventhandler">Understanding EventHandler</a></h2>
 <p><code>EventHandler</code> is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.</p>
 <p>Let's break down what you need to know.</p>
 <h3 id="associated-types"><a class="header" href="#associated-types">Associated types</a></h3>
-<ul>
-<li><code>Message</code><!-- TODO: Hyperlink types to docs -->
+<h4 id="message"><a class="header" href="#message"><code>Message</code></a></h4>
+<!-- TODO: Hyperlink types to docs -->
 <ul>
 <li>The enum which you recieve when a future from a <a href="ch-1/"><code>Command</code></a> is completed.</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     type Message: std::fmt::Debug + Send,
@@ -216,17 +246,20 @@ channel = &quot;nightly&quot;
     ...
 }
 </code></pre>
-<ul>
-<li><code>GitHubClient</code>
-<ul>
-<li>In 99% of cases, this type should be set equal to <code>Client&lt;Self&gt;</code>.
+<h4 id="githubclient"><a class="header" href="#githubclient"><code>GitHubClient</code></a></h4>
+<div class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+</div>
+<div>
+<p>In 99% of cases, this type should be set equal to <code>Client&lt;Self&gt;</code>.</p>
 <ul>
 <li><code>Client&lt;Self&gt;</code> is the default value. You shouldn't have to override this unless you're writing your own custom <code>GitHubClient</code> implementation (not recommended)</li>
 </ul>
-</li>
+</div>
+</div>
+<ul>
 <li>This is used to represent the type of the <code>github_client</code> parameter present in each event.</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">#[async_trait]
 trait EventHandler {
@@ -247,13 +280,19 @@ trait EventHandler {
 </code></pre>
 <h3 id="listener-configuration"><a class="header" href="#listener-configuration">Listener Configuration</a></h3>
 <h3 id="supported-on-all-platforms"><a class="header" href="#supported-on-all-platforms">Supported on all platforms.</a></h3>
-<ul>
-<li><code>listener_secret</code>
+<h4 id="listener_secret"><a class="header" href="#listener_secret"><code>listener_secret</code></a></h4>
+<div class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+</div>
+<div>
 <ul>
 <li>Requires the <code>secrets</code> feature to be enabled.</li>
-<li>Your webhook secret.</li>
 </ul>
-</li>
+</div>
+</div>
+<ul>
+<li>Your webhook secret.</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     fn listener_secret(&amp;self) -&gt; &amp;[u8] {
@@ -264,12 +303,9 @@ trait EventHandler {
 }
 </code></pre>
 <h3 id="unsupported-on-webassembly"><a class="header" href="#unsupported-on-webassembly">Unsupported on WebAssembly</a></h3>
-<ul>
-<li><code>listener_port</code>
+<h4 id="listener_port"><a class="header" href="#listener_port"><code>listener_port</code></a></h4>
 <ul>
 <li>The port where the event listener listens (<code>8080</code> by default).</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     fn listener_port(&amp;self) -&gt; u16 {
@@ -279,12 +315,9 @@ trait EventHandler {
     ...
 }
 </code></pre>
-<ul>
-<li><code>route</code>
+<h4 id="route"><a class="header" href="#route"><code>route</code></a></h4>
 <ul>
 <li>The route at which payloads are to be accepted (<code>/payload</code> by default).</li>
-</ul>
-</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     fn route(&amp;self) -&gt; &amp;'static str {
@@ -313,9 +346,12 @@ trait EventHandler {
 }
 </code></pre>
 <h3 id="usage-example"><a class="header" href="#usage-example">Usage Example</a></h3>
-<ul>
-<li>Here's an example of the <code>EventHandler</code> trait in action.</li>
-</ul>
+<div class="admonition example">
+<div class="admonition-title">
+<p>Example</p>
+</div>
+<div>
+<p>Here's an example of the <code>EventHandler</code> trait in action.</p>
 <pre><code class="language-rust ignore does-not-compile">#[derive(Debug)]
 struct Handler {}
 
@@ -359,10 +395,18 @@ async fn main() -&gt; Result&lt;()&gt; {
     Ok(())
 }
 </code></pre>
+</div>
+</div>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="understanding-builders"><a class="header" href="#understanding-builders">Understanding Builders</a></h2>
 <p>All builders in Octocat follow a similar pattern. Each one implements the <code>Builder</code> trait, and contains setters for each of its fields, nested or not.</p>
-<table><thead><tr><th>⚠️ Builders and methods are currently limited in their variety. This will change with time, however it may take a while for work to resume.</th></tr></thead><tbody>
-</tbody></table>
+<div class="admonition warning">
+<div class="admonition-title">
+<p>Warning</p>
+</div>
+<div>
+<p>Builders and methods are currently limited in their variety. This will change with time, however it may take a while for work to resume.</p>
+</div>
+</div>
 <h3 id="the-builder-trait"><a class="header" href="#the-builder-trait">The <code>Builder</code> trait</a></h3>
 <pre><code class="language-rust ignore does-not-compile">#[async_trait]
 pub trait Builder {
@@ -374,9 +418,12 @@ pub trait Builder {
 }
 </code></pre>
 <h3 id="examples"><a class="header" href="#examples">Examples</a></h3>
-<ul>
-<li>Commenting on a commit.</li>
-</ul>
+<div class="admonition example">
+<div class="admonition-title">
+<p>Example</p>
+</div>
+<div>
+<p>Commenting on a commit.</p>
 <pre><code class="language-rust ignore does-not-compile">let res = CommitCommentBuilder::new()
     .owner(&quot;octocat-rs&quot;)
     .repo(&quot;octocat-rs&quot;)
@@ -389,9 +436,14 @@ pub trait Builder {
 // Prints the URL at which you can find the comment you've just made.
 dbg!(res.html_url);
 </code></pre>
-<ul>
-<li>Reacting to a commit comment.</li>
-</ul>
+</div>
+</div>
+<div class="admonition example">
+<div class="admonition-title">
+<p>Example</p>
+</div>
+<div>
+<p>Reacting to a commit comment.</p>
 <pre><code class="language-rust ignore does-not-compile">let _ = CommentReactionBuilder::new()
     .owner(&quot;octocat-rs&quot;)
     .repo(&quot;octocat-rs&quot;)
@@ -403,7 +455,8 @@ dbg!(res.html_url);
 
 // Comment you just reacted to: https://github.com/octocat-rs/octocat-rs/commit/40919cbf40530cf15a002d701a1a1bd6a6006105#commitcomment-67534661
 </code></pre>
-
+</div>
+</div>
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">

@@ -25,6 +25,7 @@
         <link rel="stylesheet" href="ayu-highlight.css">
 
         <!-- Custom theme stylesheets -->
+        <link rel="stylesheet" href="././mdbook-admonish.css">
     </head>
     <body>
         <!-- Provide site root to javascript -->
@@ -134,7 +135,37 @@
 
                 <div id="content" class="content">
                     <main>
-                        <h2 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h2>
+                        <div class="admonition info">
+<div class="admonition-title">
+<p>Info</p>
+</div>
+<div>
+<ul>
+<li>If you're using Octocat for Cloudflare Workers, click <a href="#getting-started-workers">here</a>.</li>
+<li>If aren't, click <a href="#getting-started-native">here</a>.</li>
+</ul>
+</div>
+</div>
+<div class="admonition note">
+<div class="admonition-title">
+<p>Note</p>
+</div>
+<div>
+<p>Octocat currently relies on some nightly features (namely associated type defaults) to build. Set the toolchain override in the project directory to nightly. You can do this via:</p>
+<ul>
+<li>The <code>rustup</code> command, or </li>
+</ul>
+<pre><code class="language-bash">rustup override set nightly
+</code></pre>
+<ul>
+<li>The <code>rust-toolchain.toml</code> file (recommended):</li>
+</ul>
+<pre><code class="language-toml">[toolchain]
+channel = &quot;nightly&quot;
+</code></pre>
+</div>
+</div>
+<h2 id="getting-started-native"><a class="header" href="#getting-started-native">Getting Started (native)</a></h2>
 <ul>
 <li>Create the project</li>
 </ul>
@@ -149,14 +180,8 @@ octocat-rs = { git = &quot;https://github.com/octocat-rs/octocat-rs&quot; }
 tokio = { version = &quot;1&quot;, features = [&quot;full&quot;] }
 async-trait = &quot;0.1.52&quot;
 </code></pre>
-<ul>
-<li>Octocat currently relies on some nightly features (namely associated type defaults) to build. Set the toolchain override in the project directory to nightly. You can do this using the <code>rustup</code> command or the <code>rust-toolchain.toml</code> file (recommended):</li>
-</ul>
-<pre><code class="language-bash">rustup override set nightly
-</code></pre>
-<pre><code class="language-toml">[toolchain]
-channel = &quot;nightly&quot;
-</code></pre>
+<h2 id="getting-started-workers"><a class="header" href="#getting-started-workers">Getting Started (Workers)</a></h2>
+<p>Octocat has support for WebAssembly with Cloudflare workers. See <a href="https://github.com/octocat-rs/octocat-rs/tree/main/examples/cloudflare">the cloudflare example in the project repository</a> for more information.</p>
 
                     </main>
 
