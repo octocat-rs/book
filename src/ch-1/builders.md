@@ -2,8 +2,9 @@
 
 All builders in Octocat follow a similar pattern. Each one implements the `Builder` trait, and contains setters for each of its fields, nested or not.
 
-| ⚠️ Builders and methods are currently limited in their variety. This will change with time, however it may take a while for work to resume. |
-|-|
+```admonish warning
+Builders and methods are currently limited in their variety. This will change with time, however it may take a while for work to resume.
+```
 
 ### The `Builder` trait
 
@@ -20,7 +21,9 @@ pub trait Builder {
 
 ### Examples
 
-* Commenting on a commit.
+~~~admonish example
+Commenting on a commit.
+
 
 ```rust,ignore,does-not-compile
 let res = CommitCommentBuilder::new()
@@ -35,8 +38,10 @@ let res = CommitCommentBuilder::new()
 // Prints the URL at which you can find the comment you've just made.
 dbg!(res.html_url);
 ```
+~~~
 
-* Reacting to a commit comment.
+~~~admonish example
+Reacting to a commit comment.
 
 ```rust,ignore,does-not-compile
 let _ = CommentReactionBuilder::new()
@@ -50,3 +55,4 @@ let _ = CommentReactionBuilder::new()
 
 // Comment you just reacted to: https://github.com/octocat-rs/octocat-rs/commit/40919cbf40530cf15a002d701a1a1bd6a6006105#commitcomment-67534661
 ```
+~~~

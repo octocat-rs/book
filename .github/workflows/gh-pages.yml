@@ -5,20 +5,28 @@ on:
     branches:
       - main
     paths:
-        - 'src/**'
-        - '.github/**'
-        - 'book.toml'
+      - "src/**"
+      - ".github/**"
+      - "book.toml"
 
 jobs:
   deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          path: |
+            ~/.cargo/
+          key: ${{ runner.os }}-mdbook-${{ hashFiles('**/book.toml') }}
 
       - name: Setup mdBook
         uses: peaceiris/actions-mdbook@v1
         with:
-          mdbook-version: 'latest'
+          mdbook-version: "latest"
+
+      - name: Install mdbook-admonish
+        run: cargo install mdbook-admonish
 
       - run: mdbook build
 

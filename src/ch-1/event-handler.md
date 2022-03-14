@@ -6,9 +6,10 @@ Let's break down what you need to know.
 
 ### Associated types
 
-* `Message`
-    <!-- TODO: Hyperlink types to docs -->
-    * The enum which you recieve when a future from a [`Command`]() is completed.
+#### `Message`
+
+<!-- TODO: Hyperlink types to docs -->
+* The enum which you recieve when a future from a [`Command`]() is completed.
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
@@ -24,10 +25,15 @@ trait EventHandler {
 }
 ```
 
-* `GitHubClient`
-    * In 99% of cases, this type should be set equal to `Client<Self>`.
-        * `Client<Self>` is the default value. You shouldn't have to override this unless you're writing your own custom `GitHubClient` implementation (not recommended)
-    * This is used to represent the type of the `github_client` parameter present in each event.
+#### `GitHubClient`
+
+```admonish note
+In 99% of cases, this type should be set equal to `Client<Self>`.
+
+* `Client<Self>` is the default value. You shouldn't have to override this unless you're writing your own custom `GitHubClient` implementation (not recommended)
+```
+
+* This is used to represent the type of the `github_client` parameter present in each event.
 
 ```rust,ignore,does-not-compile
 #[async_trait]
@@ -52,9 +58,13 @@ trait EventHandler {
 
 ### Supported on all platforms.
 
-* `listener_secret`
-    * Requires the `secrets` feature to be enabled.
-    * Your webhook secret.
+#### `listener_secret`
+
+```admonish info
+* Requires the `secrets` feature to be enabled.
+```
+
+* Your webhook secret.
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
@@ -68,8 +78,9 @@ trait EventHandler {
 
 ### Unsupported on WebAssembly
 
-* `listener_port`
-    * The port where the event listener listens (`8080` by default).
+#### `listener_port`
+
+* The port where the event listener listens (`8080` by default).
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
@@ -80,8 +91,10 @@ trait EventHandler {
     ...
 }
 ```
-* `route`
-    * The route at which payloads are to be accepted (`/payload` by default).
+
+#### `route`
+
+* The route at which payloads are to be accepted (`/payload` by default).
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
@@ -114,7 +127,9 @@ trait EventHandler {
 ```
 ### Usage Example
 
-* Here's an example of the `EventHandler` trait in action.
+~~~admonish example
+
+Here's an example of the `EventHandler` trait in action.
 
 ```rust,ignore,does-not-compile
 #[derive(Debug)]
@@ -160,3 +175,4 @@ async fn main() -> Result<()> {
     Ok(())
 }
 ```
+~~~
