@@ -136,13 +136,12 @@
                 <div id="content" class="content">
                     <main>
                         <h2 id="understanding-eventhandler"><a class="header" href="#understanding-eventhandler">Understanding EventHandler</a></h2>
-<p><code>EventHandler</code> is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.</p>
+<p><a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/handler/trait.EventHandler.html"><code>EventHandler</code></a> is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.</p>
 <p>Let's break down what you need to know.</p>
 <h3 id="associated-types"><a class="header" href="#associated-types">Associated types</a></h3>
 <h4 id="message"><a class="header" href="#message"><code>Message</code></a></h4>
-<!-- TODO: Hyperlink types to docs -->
 <ul>
-<li>The enum which you recieve when a future from a <a href=""><code>Command</code></a> is completed.</li>
+<li>The enum which you recieve when a future from a <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/command/struct.Command.html"><code>Command</code></a> is completed.</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     type Message: std::fmt::Debug + Send,
@@ -164,7 +163,7 @@
 <div>
 <p>In 99% of cases, this type should be set equal to <code>Client&lt;Self&gt;</code>.</p>
 <ul>
-<li><code>Client&lt;Self&gt;</code> is the default value. You shouldn't have to override this unless you're writing your own custom <code>GitHubClient</code> implementation (not recommended)</li>
+<li><code>Client&lt;Self&gt;</code> is the default value. You shouldn't have to override this unless you're writing your own custom <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/client/trait.GitHubClient.html"><code>GitHubClient</code></a> implementation (not recommended)</li>
 </ul>
 </div>
 </div>

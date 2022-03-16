@@ -145,10 +145,9 @@
 </li>
 <li>
 <p>The first (and most common) one is as a webhook event listener:</p>
-<!-- TODO: Hyperlink types to docs -->
 <ul>
-<li>Essentially, the event listener passes payloads to the user, who then responds with a <code>Command</code> that can either contain nothing or a number of futures.</li>
-<li>The <code>Command</code> is executed as soon as the event loop is free, and the user recieves the result in the form of a <code>Message</code> (an enum which they define).</li>
+<li>Essentially, the event listener passes payloads to the user, who then responds with a <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/command/struct.Command.html"><code>Command</code></a> that can either contain nothing or a number of futures.</li>
+<li>The <code>Command</code> is executed as soon as the event loop is free, and the user recieves the result in the form of a <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/handler/trait.EventHandler.html#associatedtype.Message"><code>Message</code></a> (an enum which they define).</li>
 </ul>
 </li>
 </ul>
@@ -226,13 +225,12 @@ async-trait = &quot;0.1.52&quot;
 <div style="break-before: page; page-break-before: always;"></div><h2 id="fundamental-concepts"><a class="header" href="#fundamental-concepts">Fundamental Concepts</a></h2>
 <p>This chapter goes over the concepts you'll need to understand in order to use Octocat.</p>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="understanding-eventhandler"><a class="header" href="#understanding-eventhandler">Understanding EventHandler</a></h2>
-<p><code>EventHandler</code> is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.</p>
+<p><a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/handler/trait.EventHandler.html"><code>EventHandler</code></a> is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.</p>
 <p>Let's break down what you need to know.</p>
 <h3 id="associated-types"><a class="header" href="#associated-types">Associated types</a></h3>
 <h4 id="message"><a class="header" href="#message"><code>Message</code></a></h4>
-<!-- TODO: Hyperlink types to docs -->
 <ul>
-<li>The enum which you recieve when a future from a <a href="ch-1/"><code>Command</code></a> is completed.</li>
+<li>The enum which you recieve when a future from a <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/command/struct.Command.html"><code>Command</code></a> is completed.</li>
 </ul>
 <pre><code class="language-rust ignore does-not-compile">trait EventHandler {
     type Message: std::fmt::Debug + Send,
@@ -254,7 +252,7 @@ async-trait = &quot;0.1.52&quot;
 <div>
 <p>In 99% of cases, this type should be set equal to <code>Client&lt;Self&gt;</code>.</p>
 <ul>
-<li><code>Client&lt;Self&gt;</code> is the default value. You shouldn't have to override this unless you're writing your own custom <code>GitHubClient</code> implementation (not recommended)</li>
+<li><code>Client&lt;Self&gt;</code> is the default value. You shouldn't have to override this unless you're writing your own custom <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/client/trait.GitHubClient.html"><code>GitHubClient</code></a> implementation (not recommended)</li>
 </ul>
 </div>
 </div>
@@ -398,7 +396,7 @@ async fn main() -&gt; Result&lt;()&gt; {
 </div>
 </div>
 <div style="break-before: page; page-break-before: always;"></div><h2 id="understanding-builders"><a class="header" href="#understanding-builders">Understanding Builders</a></h2>
-<p>All builders in Octocat follow a similar pattern. Each one implements the <code>Builder</code> trait, and contains setters for each of its fields, nested or not.</p>
+<p>All builders in Octocat follow a similar pattern. Each one implements the <a href="https://octocat-rs.github.io/octocat-rs/github_rest/builders/trait.Builder.html"><code>Builder</code></a> trait, and contains setters for each of its fields, nested or not.</p>
 <div class="admonition warning">
 <div class="admonition-title">
 <p>Warning</p>
@@ -471,20 +469,13 @@ dbg!(res.html_url);
 </div>
 </div>
 <ul>
-<li>Octocat has support for Cloudflare Workers, whereas Octocrab does not.</li>
-</ul>
-<div class="admonition note">
-<div class="admonition-title">
-<p>Note</p>
-</div>
-<div>
-<p>The hyperlinks don't work yet, as we have to get our documentation hosted first.</p>
-</div>
-</div>
+<li>
+<p>Octocat has support for Cloudflare Workers, whereas Octocrab does not.</p>
+</li>
+<li>
+<p>Octocat's API is also designed to be much more flexible, something that can be seen in how our builders are structured. </p>
 <ul>
-<li>Octocat's API is also designed to be much more flexible, something that can be seen in how our builders are structured. 
-<ul>
-<li>The <a href="ch-2/"><code>GitHubClient</code></a> and <a href="ch-2/"><code>Requester</code></a> traits also demonstrate this.</li>
+<li>The <a href="https://octocat-rs.github.io/octocat-rs/octocat_rs/github/client/trait.GitHubClient.html"><code>GitHubClient</code></a> and <a href="https://octocat-rs.github.io/octocat-rs/github_rest/trait.Requester.html"><code>Requester</code></a> traits also demonstrate this.</li>
 </ul>
 </li>
 </ul>
