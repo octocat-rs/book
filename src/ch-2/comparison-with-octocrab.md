@@ -12,12 +12,8 @@ We are working on the polish, however it will take some time before we can say t
 
 * Octocat has support for Cloudflare Workers, whereas Octocrab does not.
 
-```admonish note
-The hyperlinks don't work yet, as we have to get our documentation hosted first.
-```
-
 * Octocat's API is also designed to be much more flexible, something that can be seen in how our builders are structured. 
-    * The [`GitHubClient`]() and [`Requester`]() traits also demonstrate this.
+    * The [`GitHubClient`](https://octocat-rs.github.io/octocat-rs/octocat_rs/github/client/trait.GitHubClient.html) and [`Requester`](https://octocat-rs.github.io/octocat-rs/github_rest/trait.Requester.html) traits also demonstrate this.
 
 ```admonish todo 
 Detailed comparisons and examples are coming soon; it'll take time for me to become familiar enough with their API to write them.

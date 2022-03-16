@@ -1,6 +1,6 @@
 ## Understanding Builders 
 
-All builders in Octocat follow a similar pattern. Each one implements the `Builder` trait, and contains setters for each of its fields, nested or not.
+All builders in Octocat follow a similar pattern. Each one implements the [`Builder`](https://octocat-rs.github.io/octocat-rs/github_rest/builders/trait.Builder.html) trait, and contains setters for each of its fields, nested or not.
 
 ```admonish warning
 Builders and methods are currently limited in their variety. This will change with time, however it may take a while for work to resume.

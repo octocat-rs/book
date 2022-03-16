@@ -1,6 +1,6 @@
 ## Understanding EventHandler
 
-`EventHandler` is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.
+[`EventHandler`](https://octocat-rs.github.io/octocat-rs/octocat_rs/github/handler/trait.EventHandler.html) is a trait you must implement if you intend to use the event listener portion of Octocat in any meaningful way.
 
 Let's break down what you need to know.
 
@@ -8,8 +8,7 @@ Let's break down what you need to know.
 
 #### `Message`
 
-<!-- TODO: Hyperlink types to docs -->
-* The enum which you recieve when a future from a [`Command`]() is completed.
+* The enum which you recieve when a future from a [`Command`](https://octocat-rs.github.io/octocat-rs/octocat_rs/github/command/struct.Command.html) is completed.
 
 ```rust,ignore,does-not-compile
 trait EventHandler {
@@ -30,7 +29,8 @@ trait EventHandler {
 ```admonish note
 In 99% of cases, this type should be set equal to `Client<Self>`.
 
-* `Client<Self>` is the default value. You shouldn't have to override this unless you're writing your own custom `GitHubClient` implementation (not recommended)
+* `Client<Self>` is the default value. You shouldn't have to override this unless you're writing your own custom [`GitHubClient`](https://octocat-rs.github.io/octocat-rs/octocat_rs/github/client/trait.GitHubClient.html) implementation (not recommended)
+
 ```
 
 * This is used to represent the type of the `github_client` parameter present in each event.
