@@ -168,6 +168,70 @@
 <p>Detailed comparisons and examples are coming soon; it'll take time for me to become familiar enough with their API to write them.</p>
 </div>
 </div>
+<h3 id="direct-api-comparisons"><a class="header" href="#direct-api-comparisons">Direct API Comparisons</a></h3>
+<div class="admonition warning">
+<div class="admonition-title">
+<p>Warning</p>
+</div>
+<div>
+<p>This section is still a WIP.</p>
+</div>
+</div>
+<div class="admonition example">
+<div class="admonition-title">
+<p>Example: Getting 50 issues from a repository</p>
+</div>
+<div>
+<h4 id="octocrab"><a class="header" href="#octocrab">Octocrab</a></h4>
+<pre><code class="language-rust ignore  does-not-compile">octocrab::instance()
+    .issues(&quot;microsoft&quot;, &quot;vscode&quot;)
+    .list()
+    .per_page(50)
+    .send()
+    .await?;
+</code></pre>
+<h4 id="octocat"><a class="header" href="#octocat">Octocat</a></h4>
+<pre><code class="language-rust ignore  does-not-compile">let http_client = HttpClient::new_none();
+
+GetIssuesBuilder::new()
+    .owner(&quot;microsoft&quot;)
+    .repo(&quot;vscode&quot;)
+    .per_page(50.to_string())
+    .execute(&amp;http_client)
+    .await?;
+</code></pre>
+</div>
+</div>
+<p>As you can see from this example, there is a key difference between how builders function in Octocrab and in Octocat. </p>
+<ul>
+<li>In Octocrab, the HTTP client is the source of the builder.</li>
+<li>In Octocat, the builder is instantianted separately, with the HTTP client only attached when it's time to execute it. We made this choice because we believe it's more flexible than the alternative; it allows for users to conditionally attach authorization to a request.</li>
+</ul>
+<p>Speaking of authorization, let's compare how you would go about adding authorization to an HTTP client in the two.</p>
+<div class="admonition example">
+<div class="admonition-title">
+<p>Example: Attaching Authorization to an HTTP Client</p>
+</div>
+<div>
+<h4 id="octocrab-1"><a class="header" href="#octocrab-1">Octocrab</a></h4>
+<pre><code class="language-rust ignore  does-not-compile"><span class="boring">use octocrab::Octocrab;
+</span><span class="boring">
+</span>Octocrab::builder().personal_token(&quot;TOKEN&quot;).build()?;
+</code></pre>
+<h4 id="octocat-1"><a class="header" href="#octocat-1">Octocat</a></h4>
+<pre><code class="language-rust ignore  does-not-compile"><span class="boring">use octocat_rs::{HttpClient, Authorization}
+</span><span class="boring">
+</span>let username: String;
+let token: String;
+
+let auth = Authorization::PersonalToken { username, token };
+
+HttpClient::new(Some(auth), None);
+</code></pre>
+</div>
+</div>
+<p>You might notice that Octocat requires the username whereas Octocrab does not. This is due to a difference in internal design choices, however support for the former option would be easy to implement in Octocat if it is desired. </p>
+
                     </main>
 
                     <nav class="nav-wrapper" aria-label="Page navigation">
