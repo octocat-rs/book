@@ -350,7 +350,14 @@ trait EventHandler {
 </div>
 <div>
 <p>Here's an example of the <code>EventHandler</code> trait in action.</p>
-<pre><code class="language-rust ignore does-not-compile">#[derive(Debug)]
+<pre><code class="language-rust ignore does-not-compile"><span class="boring">use std::sync::Arc;
+</span><span class="boring">
+</span><span class="boring">use anyhow::Result;
+</span><span class="boring">use async_trait::async_trait;
+</span><span class="boring">
+</span><span class="boring">use octocat_rs::{handler::EventHandler, rest::model::repositories::events::PushEvent, Client, ClientBuilder, Command};
+</span><span class="boring">
+</span>#[derive(Debug)]
 struct Handler {}
 
 #[derive(Debug)]
@@ -422,12 +429,20 @@ pub trait Builder {
 </div>
 <div>
 <p>Commenting on a commit.</p>
-<pre><code class="language-rust ignore does-not-compile">let res = CommitCommentBuilder::new()
+<pre><code class="language-rust ignore does-not-compile"><span class="boring">use octocat_rs::{
+</span><span class="boring">  rest::{
+</span><span class="boring">      builders::{CommitCommentBuilder, Builder},
+</span><span class="boring">      model::reactions::Reaction,
+</span><span class="boring">      client::DefaultRequester,
+</span><span class="boring">  },
+</span><span class="boring">};
+</span><span class="boring">
+</span>let res = CommitCommentBuilder::new()
     .owner(&quot;octocat-rs&quot;)
     .repo(&quot;octocat-rs&quot;)
     .sha(&quot;fcc8348f8286d05976090a9086d64eefb90e3f8b&quot;)
     .body(&quot;Some text here&quot;)
-    .execute(&amp;DefaultRequest::new(&quot;TOKEN&quot;))
+    .execute(&amp;DefaultRequester::new(&quot;TOKEN&quot;))
     .await
     .unwrap();
 
@@ -442,12 +457,20 @@ dbg!(res.html_url);
 </div>
 <div>
 <p>Reacting to a commit comment.</p>
-<pre><code class="language-rust ignore does-not-compile">let _ = CommentReactionBuilder::new()
+<pre><code class="language-rust ignore does-not-compile"><span class="boring">use octocat_rs::{
+</span><span class="boring">  rest::{
+</span><span class="boring">      builders::{CommentReactionBuilder, Builder},
+</span><span class="boring">      model::reactions::Reaction,
+</span><span class="boring">      client::DefaultRequester,
+</span><span class="boring">  },
+</span><span class="boring">};
+</span><span class="boring">
+</span>let _ = CommentReactionBuilder::new()
     .owner(&quot;octocat-rs&quot;)
     .repo(&quot;octocat-rs&quot;)
     .comment_id(67534661)
     .reaction(Reaction::Rocket)
-    .execute(&amp;DefaultRequest::new(&quot;TOKEN&quot;))
+    .execute(&amp;DefaultRequester::new(&quot;TOKEN&quot;))
     .await
     .unwrap();
 
@@ -510,7 +533,14 @@ dbg!(res.html_url);
     .await?;
 </code></pre>
 <h4 id="octocat-1"><a class="header" href="#octocat-1">Octocat</a></h4>
-<pre><code class="language-rust ignore  does-not-compile">let http_client = HttpClient::new_none();
+<pre><code class="language-rust ignore  does-not-compile"><span class="boring">use octocat_rs::{
+</span><span class="boring">  rest::builders::{
+</span><span class="boring">      Builder, GetIssuesBuilder
+</span><span class="boring">  },
+</span><span class="boring">  HttpClient, 
+</span><span class="boring">};
+</span><span class="boring">
+</span>let http_client = HttpClient::new_none();
 
 GetIssuesBuilder::new()
     .owner(&quot;microsoft&quot;)

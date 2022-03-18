@@ -261,7 +261,14 @@ trait EventHandler {
 </div>
 <div>
 <p>Here's an example of the <code>EventHandler</code> trait in action.</p>
-<pre><code class="language-rust ignore does-not-compile">#[derive(Debug)]
+<pre><code class="language-rust ignore does-not-compile"><span class="boring">use std::sync::Arc;
+</span><span class="boring">
+</span><span class="boring">use anyhow::Result;
+</span><span class="boring">use async_trait::async_trait;
+</span><span class="boring">
+</span><span class="boring">use octocat_rs::{handler::EventHandler, rest::model::repositories::events::PushEvent, Client, ClientBuilder, Command};
+</span><span class="boring">
+</span>#[derive(Debug)]
 struct Handler {}
 
 #[derive(Debug)]

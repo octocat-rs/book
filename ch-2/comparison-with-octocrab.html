@@ -191,7 +191,14 @@
     .await?;
 </code></pre>
 <h4 id="octocat"><a class="header" href="#octocat">Octocat</a></h4>
-<pre><code class="language-rust ignore  does-not-compile">let http_client = HttpClient::new_none();
+<pre><code class="language-rust ignore  does-not-compile"><span class="boring">use octocat_rs::{
+</span><span class="boring">  rest::builders::{
+</span><span class="boring">      Builder, GetIssuesBuilder
+</span><span class="boring">  },
+</span><span class="boring">  HttpClient, 
+</span><span class="boring">};
+</span><span class="boring">
+</span>let http_client = HttpClient::new_none();
 
 GetIssuesBuilder::new()
     .owner(&quot;microsoft&quot;)
