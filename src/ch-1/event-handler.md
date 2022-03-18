@@ -132,6 +132,13 @@ trait EventHandler {
 Here's an example of the `EventHandler` trait in action.
 
 ```rust,ignore,does-not-compile
+# use std::sync::Arc;
+#
+# use anyhow::Result;
+# use async_trait::async_trait;
+#
+# use octocat_rs::{handler::EventHandler, rest::model::repositories::events::PushEvent, Client, ClientBuilder, Command};
+#
 #[derive(Debug)]
 struct Handler {}
 

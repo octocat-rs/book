@@ -38,6 +38,13 @@ octocrab::instance()
 #### Octocat
 
 ```rust,ignore, does-not-compile
+# use octocat_rs::{
+#   rest::builders::{
+#       Builder, GetIssuesBuilder
+#   },
+#   HttpClient, 
+# };
+#
 let http_client = HttpClient::new_none();
 
 GetIssuesBuilder::new()

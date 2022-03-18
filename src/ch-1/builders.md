@@ -26,12 +26,20 @@ Commenting on a commit.
 
 
 ```rust,ignore,does-not-compile
+# use octocat_rs::{
+#   rest::{
+#       builders::{CommitCommentBuilder, Builder},
+#       model::reactions::Reaction,
+#       client::DefaultRequester,
+#   },
+# };
+#
 let res = CommitCommentBuilder::new()
     .owner("octocat-rs")
     .repo("octocat-rs")
     .sha("fcc8348f8286d05976090a9086d64eefb90e3f8b")
     .body("Some text here")
-    .execute(&DefaultRequest::new("TOKEN"))
+    .execute(&DefaultRequester::new("TOKEN"))
     .await
     .unwrap();
 
@@ -44,12 +52,20 @@ dbg!(res.html_url);
 Reacting to a commit comment.
 
 ```rust,ignore,does-not-compile
+# use octocat_rs::{
+#   rest::{
+#       builders::{CommentReactionBuilder, Builder},
+#       model::reactions::Reaction,
+#       client::DefaultRequester,
+#   },
+# };
+#
 let _ = CommentReactionBuilder::new()
     .owner("octocat-rs")
     .repo("octocat-rs")
     .comment_id(67534661)
     .reaction(Reaction::Rocket)
-    .execute(&DefaultRequest::new("TOKEN"))
+    .execute(&DefaultRequester::new("TOKEN"))
     .await
     .unwrap();
 
